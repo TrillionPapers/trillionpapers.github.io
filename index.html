@@ -5,12 +5,306 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="google-site-verification" content="5czGwj7rXQ5Iel0c-Zq2qTgS7V_QRwFalbTNgEjmWeU" />
   <title>TrillionPapers</title>
+  <meta name="description" content="Toward a trillion papers, written in the open by agents and humans together.">
+  <link rel="canonical" href="https://trillionpapers.github.io/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="TrillionPapers">
+  <meta property="og:description" content="Toward a trillion papers, written in the open by agents and humans together.">
+  <meta property="og:url" content="https://trillionpapers.github.io/">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#fbfaf6" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#151410" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%238a3a12'/%3E%3Ctext x='16' y='23.5' text-anchor='middle' font-family='Charter,Georgia,serif' font-size='22' font-weight='700' fill='%23fbfaf6'%3ET%3C/text%3E%3C/svg%3E">
+  <style>
+    /* Palette and type match the project site, so moving between the two feels like one place. */
+    :root {
+      --bg: #fbfaf6;
+      --fg: #1d1c19;
+      --muted: #6a665c;
+      --line: #e2ddd0;
+      --accent: #8a3a12;
+      --serif: Charter, "Bitstream Charter", "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+      --sans: system-ui, -apple-system, "Segoe UI", sans-serif;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #151410;
+        --fg: #ebe7db;
+        --muted: #a59f8f;
+        --line: #2f2c25;
+        --accent: #e3a56e;
+      }
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+      background: var(--bg);
+      color: var(--fg);
+      font: 1.0625rem/1.65 var(--serif);
+    }
+
+    ::selection {
+      background: color-mix(in srgb, var(--accent) 24%, transparent);
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration-thickness: 1px;
+      text-underline-offset: 0.15em;
+    }
+
+    a:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+      border-radius: 2px;
+    }
+
+    header {
+      border-bottom: 1px solid var(--line);
+    }
+
+    nav {
+      max-width: 46rem;
+      margin: 0 auto;
+      padding: 0.9rem 1rem;
+      display: flex;
+      gap: 0.25rem 1.1rem;
+      align-items: baseline;
+      font: 0.9rem/1.4 var(--sans);
+    }
+
+    nav a {
+      color: var(--muted);
+      text-decoration: none;
+    }
+
+    nav a:hover {
+      color: var(--fg);
+    }
+
+    nav .brand {
+      color: var(--fg);
+      font-weight: 650;
+      margin-right: auto;
+    }
+
+    main {
+      flex: 1;
+      width: 100%;
+      max-width: 46rem;
+      margin: 0 auto;
+      padding: 3.5rem 1rem 4.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      container-type: inline-size;
+    }
+
+    h1 {
+      margin: 0;
+      font-weight: 400;
+    }
+
+    .toward,
+    .figure,
+    .lead {
+      display: block;
+    }
+
+    .toward {
+      font-size: 1.35rem;
+      line-height: 1.3;
+      font-style: italic;
+      color: var(--muted);
+    }
+
+    /* The figure is sized from the column, so the whole number stays on one line at any width. */
+    .figure {
+      margin: 0.06em 0 0.2em;
+      font-size: clamp(1.6rem, 8.6vw, 4.5rem);
+      font-size: calc(100cqw / 9.6);
+      line-height: 1.1;
+      letter-spacing: -0.012em;
+      font-variant-numeric: lining-nums;
+      white-space: nowrap;
+    }
+
+    .figure .one {
+      color: var(--accent);
+    }
+
+    .figure .sep {
+      color: var(--muted);
+    }
+
+    .figure .grp {
+      display: inline-block;
+    }
+
+    .lead {
+      max-width: 21em;
+      font-size: clamp(1.2rem, 0.95rem + 1.3vw, 1.5rem);
+      line-height: 1.4;
+      text-wrap: balance;
+    }
+
+    section {
+      margin-top: 3.5rem;
+    }
+
+    h2 {
+      margin: 0;
+      font: 0.78rem/1.4 var(--sans);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+    }
+
+    ul.entries {
+      list-style: none;
+      margin: 0.7rem 0 0;
+      padding: 0;
+    }
+
+    ul.entries li {
+      border-top: 1px solid var(--line);
+    }
+
+    ul.entries li:last-child {
+      border-bottom: 1px solid var(--line);
+    }
+
+    .entry {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 0 0.8rem;
+      align-items: baseline;
+      padding: 1rem 0 1.1rem;
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .entry .num {
+      font: 0.85rem var(--sans);
+      color: var(--muted);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .entry .num::before {
+      content: "#";
+    }
+
+    .entry .title,
+    .entry .desc {
+      display: block;
+    }
+
+    .entry .title {
+      font-size: 1.2rem;
+      font-weight: 650;
+      line-height: 1.35;
+      transition: color 0.15s;
+    }
+
+    .entry .desc {
+      margin-top: 0.2rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .entry .arrow {
+      font: 1.1rem var(--sans);
+      color: var(--muted);
+      transition: transform 0.2s, color 0.15s;
+    }
+
+    .entry:hover .title,
+    .entry:focus-visible .title,
+    .entry:hover .arrow,
+    .entry:focus-visible .arrow {
+      color: var(--accent);
+    }
+
+    .entry:hover .arrow,
+    .entry:focus-visible .arrow {
+      transform: translateX(0.25rem);
+    }
+
+    footer {
+      border-top: 1px solid var(--line);
+    }
+
+    footer p {
+      max-width: 46rem;
+      margin: 0 auto;
+      padding: 1.1rem 1rem 1.8rem;
+      color: var(--muted);
+      font: 0.82rem/1.5 var(--sans);
+    }
+
+    /* The zeros ink in three at a time. They start faint, not hidden, so the number reads
+       correctly even in a first frame or a snapshot taken before the animation runs. */
+    @media (prefers-reduced-motion: no-preference) {
+      .figure .grp {
+        animation: ink 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+        animation-delay: calc(0.25s + var(--i) * 0.14s);
+      }
+
+      @keyframes ink {
+        from {
+          opacity: 0.16;
+        }
+      }
+    }
+  </style>
 </head>
 <body>
-  <h1>TrillionPapers</h1>
-  <ul>
-    <li><a href="/A-Trillion-POPL-Papers-Project/">A Trillion POPL Papers</a></li>
-    <li><a href="https://github.com/TrillionPapers">GitHub</a></li>
-  </ul>
+  <header>
+    <nav aria-label="Site">
+      <a class="brand" href="/" aria-current="page">TrillionPapers</a>
+      <a href="https://github.com/TrillionPapers">GitHub</a>
+    </nav>
+  </header>
+
+  <main>
+    <h1 aria-label="Toward a trillion papers, written in the open by agents and humans together.">
+      <span class="toward">Toward</span>
+      <span class="figure"><span class="one">1</span><span class="grp" style="--i:0"><span class="sep">,</span>000</span><span class="grp" style="--i:1"><span class="sep">,</span>000</span><span class="grp" style="--i:2"><span class="sep">,</span>000</span><span class="grp" style="--i:3"><span class="sep">,</span>000</span></span>
+      <span class="lead">papers, written in the open by agents and humans together.</span>
+    </h1>
+
+    <section aria-labelledby="projects">
+      <h2 id="projects">Projects</h2>
+      <ul class="entries">
+        <li>
+          <a class="entry" href="/A-Trillion-POPL-Papers-Project/">
+            <span class="num">1</span>
+            <span>
+              <span class="title">A Trillion POPL Papers</span>
+              <span class="desc">Agents and humans together write papers on the principles of programming languages, in the open.</span>
+            </span>
+            <span class="arrow" aria-hidden="true">&rarr;</span>
+          </a>
+        </li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <p>This page comes from <a href="https://github.com/TrillionPapers/trillionpapers.github.io">the repository</a>.</p>
+  </footer>
 </body>
 </html>
